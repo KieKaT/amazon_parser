@@ -57,7 +57,7 @@ lis = soup.find(id="zg_browseRoot").find("ul").find_all("li")
 # 37 Video Games
 
 # 30 Pet Supplies
-start_node = 30
+start_node = 12
 
 node_num_chain = ""
 node_chain = ""
@@ -72,7 +72,7 @@ def page_url_to_asin_list(url):
                 link = page_li.find("a")['href']
                 asin = re.findall(r"dp/(.*?)/ref", link)[0]
                 badge = page_li.find("span", class_="zg-badge-text").get_text()
-                print(page_li_index, asin, badge)
+                # print(page_li_index, asin, badge)
                 asin_list.append(asin + badge)
             except:
                 pass
@@ -87,18 +87,18 @@ def url_to_all_asin_list(url):
     for i in range(2):
         try:
             page_url = re.sub(r"ref=zg(.*)", "ref=zg_bs_pg_" + str(i+1) + "?_encoding=UTF8&pg=" + str(i+1), url)
-            print(page_url)
+            # print(page_url)
 
             try:
                 asin_list = page_url_to_asin_list(page_url)
-                print("asin_list:", asin_list)
+                # print("asin_list:", asin_list)
             except:
                 pass
 
             while count > 0 and asin_list is None:
                 asin_list = page_url_to_asin_list(page_url)
                 count -= 1
-                print("count:", count)
+                # print("count:", count)
 
             try:
                 if asin_list is not None:
@@ -108,7 +108,7 @@ def url_to_all_asin_list(url):
         except:
             pass
 
-    print("all_asin_list:", all_asin_list)
+    # print("all_asin_list:", all_asin_list)
     return all_asin_list
 
 def asin_info_save_to_csv_file(asin_info_dict):
@@ -135,7 +135,7 @@ def asin_info_save_to_csv_file(asin_info_dict):
         with open(csv_file_path, 'a+', encoding='utf8', newline='') as f:
             f_csv = csv.DictWriter(f, headers)
             f_csv.writerow(asin_info_dict)
-            print("success to write csv content!")
+            # print("success to write csv content!")
     except:
         print("fail to write csv content!")
 
@@ -149,8 +149,8 @@ for li_index_step, li in enumerate(lis[start_node:start_node+1]):
     li_index = start_node + li_index_step
     li_title = li.get_text().strip()
     li_url = li.a['href']
-    print("li_index:", li_index)
-    print("li_title:", li_title)
+    # print("li_index:", li_index)
+    # print("li_title:", li_title)
     print("li_url:", li_url)
 
     node_num_chain = str(li_index)
@@ -175,8 +175,8 @@ for li_index_step, li in enumerate(lis[start_node:start_node+1]):
     for li_1_index, li_1 in enumerate(lis_1):
         li_1_title = li_1.get_text().strip()
         li_1_url = li_1.a['href']
-        print("  li_1_index:", li_1_index)
-        print("  li_1_title:", li_1_title)
+        # print("  li_1_index:", li_1_index)
+        # print("  li_1_title:", li_1_title)
         print("  li_1_url:", li_1_url)
 
         node_num_chain = str(li_index) + "_" + str(li_1_index)
@@ -203,8 +203,8 @@ for li_index_step, li in enumerate(lis[start_node:start_node+1]):
                 for li_2_index, li_2 in enumerate(lis_2):
                     li_2_title = li_2.get_text().strip()
                     li_2_url = li_2.a['href']
-                    print("    li_2_index:", li_2_index)
-                    print("    li_2_title:", li_2_title)
+                    # print("    li_2_index:", li_2_index)
+                    # print("    li_2_title:", li_2_title)
                     print("    li_2_url:", li_2_url)
 
                     node_num_chain = str(li_index) + "_" + str(li_1_index) + "_" + str(li_2_index)
@@ -230,8 +230,8 @@ for li_index_step, li in enumerate(lis[start_node:start_node+1]):
                         for li_3_index, li_3 in enumerate(lis_3):
                             li_3_title = li_3.get_text().strip()
                             li_3_url = li_3.a['href']
-                            print("      li_3_index:", li_3_index)
-                            print("      li_3_title:", li_3_title)
+                            # print("      li_3_index:", li_3_index)
+                            # print("      li_3_title:", li_3_title)
                             print("      li_3_url:", li_3_url)
 
                             node_num_chain = str(li_index) + "_" + str(li_1_index) + "_" + str(li_2_index) + "_" + str(li_3_index)
