@@ -100,6 +100,14 @@ def download_soup_by_url(url):
     # print("Downloading: r.status_code=", r.status_code)
     # print("url: ", url)
 
+    status_count = 5
+    while status_count > 0 and r.status_code != 200:
+        r = requests.get(url, headers=headers)
+        # print("Downloading: r.status_code=", r.status_code)
+        if r.status_code == 200:
+            break
+        status_count -= 1
+
     # soup = BeautifulSoup(r.content, 'html.parser')
     # soup = BeautifulSoup(r.content, 'html5lib')
     soup = BeautifulSoup(r.content, 'html.parser')
@@ -822,7 +830,6 @@ def keyword_to_long_tail_keyword_list(keyword):
             # start without "*"
             url_head = "https://completion.amazon.com/search/complete?method=completion&mkt=1&r=Y5KKREBZPVVDRZT19HX9&s=133-8959284-8300960&c=&p=Gateway&l=en_US&b2b=0&fresh=0&sv=desktop&client=amazon-search-ui&x=String&search-alias=aps&q="
             url_tail = "&qs=&cf=1&fb=1&sc=1&"
-            
         try:
             keyword = keyword.replace(" ", "%20")
             keyword = keyword.replace("'", "%27")
@@ -861,6 +868,28 @@ def keyword_to_search_results_num(keyword):
         m = re.search(r"of (.*?) results", results)
         results = m.group()
         results = results.replace("of ", "").replace(" results", "").replace(",", "")
+        # print(results)
+        return(results)
+    except:
+        print("fail to find results")
+
+def keyword_to_bing_search_results_num(keyword):
+    try:
+        # print("keyword:", keyword)
+        url_head = "https://www.bing.com/search?q="
+        url_tail = "qs=n&form=QBRE"
+
+        keyword = keyword.replace(" ", "%20")
+        keyword = keyword.replace("'", "%27")
+        url = url_head + keyword + url_tail
+
+        soup = download_soup_by_url(url)
+        # print(soup)
+
+        results = soup.find("div", id="b_tween").get_text()
+        results = results.replace(" 条结果时间不限 ", "")
+        # results = results.replace(",", "")
+        # results = results.spilt()[0]
         # print(results)
         return(results)
     except:
