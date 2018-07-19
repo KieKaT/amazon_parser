@@ -61,7 +61,7 @@ class My_asin_in_others_listing():
             others_asin_list = self.keyword_to_asin_list()
             print("")
             print("My asin:", self.my_asin)
-            print("Searching \"" + self.keyword)
+            print("Searching \"" + self.keyword +"\"")
             print(str(len(others_asin_list)), "non-repeating asins in page 1")
             print("")
 
