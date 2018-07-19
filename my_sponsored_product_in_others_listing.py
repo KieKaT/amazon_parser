@@ -9,7 +9,7 @@ class My_asin_in_others_listing():
 
     def __init__(self):
         # change to yours
-        self.my_asin = "B076J8H245"
+        self.my_asin = "B0075RW2KC"
         # change to yours, find other sellers listings according self.keyword on amazon.com page 1
         self.keyword = "personalized dog collar"
 
