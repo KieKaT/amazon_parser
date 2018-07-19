@@ -91,7 +91,7 @@ class My_asin_in_others_listing():
                 ratio = str(my_count*100//total_count) + "%"
 
             print("")
-            print("My asin in others listing sponsored products placement: " + str(my_count) + "/" + str(total_count) + " (" + ratio + ")")
+            print("My asin in others listing sponsored products section: " + str(my_count) + "/" + str(total_count) + " (" + ratio + ")")
 
         except:
             pass
